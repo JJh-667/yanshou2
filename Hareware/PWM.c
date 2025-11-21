@@ -26,15 +26,21 @@ void PWM_Init(void)
 	
 
 	TIM_OCInitTypeDef TIM_OCInitStructure;				
-	TIM_OCStructInit(&TIM_OCInitStructure);                        
-	                                                             
-	                                                             
+	
+	TIM_OCStructInit(&TIM_OCInitStructure);                                                                                     
 	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;              
 	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;     
 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable; 
 	TIM_OCInitStructure.TIM_Pulse = 0;		
+	
 	TIM_OC3Init(TIM2, &TIM_OCInitStructure);
+	TIM_OC4Init(TIM2, &TIM_OCInitStructure);
+	
 
+	TIM_OC3PreloadConfig(TIM2, TIM_OCPreload_Enable);
+	TIM_OC4PreloadConfig(TIM2, TIM_OCPreload_Enable);
+	TIM_ARRPreloadConfig(TIM2, ENABLE);
+  
 	TIM_Cmd(TIM2, ENABLE);
 }
 
@@ -42,4 +48,10 @@ void PWM_Init(void)
 void PWM_SetCompare3(uint16_t Compare)
 {
 	TIM_SetCompare3(TIM2, Compare);	
+}
+
+
+void PWM_SetCompare4(uint16_t Compare)
+{
+	TIM_SetCompare4(TIM2, Compare);	
 }
